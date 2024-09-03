@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { Card, CardContent, CardMedia, Typography, Box, Chip } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import HomeIcon from '@mui/icons-material/Home';
+'use client';
+import { useVeterinarian } from '@/hook/useVeterinarian'; // Importe o hook
 import ComputerIcon from '@mui/icons-material/Computer';
 import EditIcon from '@mui/icons-material/Edit';
+import HomeIcon from '@mui/icons-material/Home';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Box, Card, CardContent, CardMedia, Chip, Typography } from '@mui/material';
 import Link from 'next/link';
-import { useVeterinarian } from '@/hook/useVeterinarian'; // Importe o hook
 
 export default function CardVeterinarios({ id }: { id: string }) {
   const { data: veterinarian, isLoading, error } = useVeterinarian(id);
@@ -19,52 +19,80 @@ export default function CardVeterinarios({ id }: { id: string }) {
   }
 
   return (
+
     <Link href={`/veterinarios/${veterinarian.id}`} passHref>
-      <Card sx={{ maxWidth: 345, cursor: 'pointer', textDecoration: 'none', '&:hover': { boxShadow: 6 } }}>
+      <Card
+        sx={{
+          maxWidth: 200,
+          cursor: 'pointer',
+          textDecoration: 'none',
+          border: '2px solid #1EE0CC',
+          borderRadius: '8px',
+          padding: '16px', // Adiciona padding interno ao Card
+          boxShadow: 3,
+          transition: 'transform 0.3s, box-shadow 0.3s, border-color 0.3s',
+          '&:hover': {
+            boxShadow: 6,
+            background: '#E2FBF9',
+            transform: 'scale(1.05)',
+          },
+          margin: '0 8px', // Adiciona margem para afastar o card das laterais do carrossel
+        }}
+      >
         <CardMedia
           component="img"
           alt={`${veterinarian.name}'s profile picture`}
-          height="200"
-          image={veterinarian.image || '/static/images/avatar/default-profile.png'} // Imagem do veterinário
+          sx={{ height: 150, width: '93%', margin: '0 auto', paddingTop: '10px' }}
+          image={veterinarian.image || '/assets/images/default-profile.svg'} // imagem padrão ou do veterinário
         />
-        <CardContent>
+        <CardContent >
           {/* Nome do Veterinário */}
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h6" component="div">
             {veterinarian.name}
           </Typography>
 
-          {/* Chip */}
-          <Chip label={veterinarian.badge || 'Especialidade'} variant="outlined" />
+          {/* Chip (badge) */}
+          <Chip label={veterinarian.badge || 'Especialidade'}
+            variant="outlined"
+            sx={{
+              fontSize: 10, // Tamanho do texto menor
+              height: 20,   // Altura menor
+              padding: '0 2px', // Ajuste de padding
+              borderColor: '#1EE0CC', // Cor da borda
+              borderWidth: '2px', // Espessura da borda
+            }}
+          />
 
           {/* Localidade */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-            <LocationOnIcon sx={{ mr: 1 }} />
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+            <LocationOnIcon sx={{ mr: 1, fontSize: 18 }} />
+            <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: 12 }}>
               {veterinarian.location}
             </Typography>
           </Box>
 
           {/* Atendimento (domicílio ou online) */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
             {veterinarian.attendanceType === 'domicilio' ? (
-              <HomeIcon sx={{ mr: 1 }} />
+              <HomeIcon sx={{ mr: 1, fontSize: 18 }} />
             ) : (
-              <ComputerIcon sx={{ mr: 1 }} />
+              <ComputerIcon sx={{ mr: 1, fontSize: 18 }} />
             )}
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: 12 }}>
               {veterinarian.attendanceType === 'domicilio' ? 'Atendimento a Domicílio' : 'Atendimento Online'}
             </Typography>
           </Box>
 
           {/* Texto de Apresentação */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-            <EditIcon sx={{ mr: 1 }} />
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+            <EditIcon sx={{ mr: 1, fontSize: 18 }} />
+            <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: 12 }}>
               {veterinarian.presentationText || 'Nenhuma apresentação disponível.'}
             </Typography>
           </Box>
         </CardContent>
       </Card>
     </Link>
+
   );
 }

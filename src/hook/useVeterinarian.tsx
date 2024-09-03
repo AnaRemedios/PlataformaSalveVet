@@ -1,7 +1,7 @@
 //hook para a pagina de perfil do veterinário
 
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios from '@/app/axios';
+import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 // Interface que define a estrutura dos dados do veterinário
 interface Veterinarian {
@@ -23,7 +23,7 @@ const fetchVeterinarian = async (id: string): Promise<Veterinarian> => {
       {
         id: '1',
         name: 'Dra. Paula Santos',
-        image: './public/assets/images/vetsimulacao1.svg',
+        image: '/assets/images/vetsimulacao1.svg',
         badge: 'Especialista em Animais Exóticos',
         location: 'São Paulo, SP',
         attendanceType: 'domicilio',
@@ -32,7 +32,7 @@ const fetchVeterinarian = async (id: string): Promise<Veterinarian> => {
       {
         id: '2',
         name: 'Dr. João Silva',
-        image: './public/assets/images/vetsimulacao2.svg',
+        image: '/assets/images/vetsimulacao2.svg',
         badge: 'Especialista em Cães',
         location: 'Rio de Janeiro, RJ',
         attendanceType: 'online',
@@ -41,7 +41,7 @@ const fetchVeterinarian = async (id: string): Promise<Veterinarian> => {
       {
         id: '7',
         name: 'Dra. Renata Marques',
-        image: './public/assets/images/vetsimulacao3.svg',
+        image: '/assets/images/vetsimulacao3.svg',
         badge: 'Especialista em Dermatologia Veterinária',
         location: 'Florianópolis, SC',
         attendanceType: 'online',
@@ -50,7 +50,7 @@ const fetchVeterinarian = async (id: string): Promise<Veterinarian> => {
       {
         id: '8',
         name: 'Dr. Felipe Costa',
-        image: './public/assets/images/vetsimulacao2.svg',
+        image: '/assets/images/vetsimulacao4.svg',
         badge: 'Especialista em Nutrição Animal',
         location: 'Fortaleza, CE',
         attendanceType: 'domicilio',
@@ -59,7 +59,7 @@ const fetchVeterinarian = async (id: string): Promise<Veterinarian> => {
       {
         id: '9',
         name: 'Dra. Cistina Medeiros',
-        image: './public/assets/images/vetsimulacao1.svg',
+        image: '/assets/images/vetsimulacao5.svg',
         badge: 'Especialista em Odontologia Veterinária',
         location: 'Brasília, DF',
         attendanceType: 'domicilio',
@@ -68,7 +68,7 @@ const fetchVeterinarian = async (id: string): Promise<Veterinarian> => {
       {
         id: '10',
         name: 'Dr. Roberto Farias',
-        image: './public/assets/images/vetsimulacao2.svg',
+        image: '/assets/images/vetsimulacao2.svg',
         badge: 'Especialista em Fisioterapia Veterinária',
         location: 'Recife, PE',
         attendanceType: 'online',
@@ -77,13 +77,13 @@ const fetchVeterinarian = async (id: string): Promise<Veterinarian> => {
       {
         id: '11',
         name: 'Dra. Camila Ferreira',
-        image: './public/assets/images/vetsimulacao3.svg',
+        image: '/assets/images/vetsimulacao3.svg',
         badge: 'Especialista em Cardiologia Veterinária',
         location: 'Goiânia, GO',
         attendanceType: 'domicilio',
         presentationText: 'Especialista em cardiologia veterinária, atendo a domicílio para garantir o cuidado cardíaco do seu pet.',
       },
-      
+
     ];
 
     const veterinarian = simulatedVeterinarians.find(vet => vet.id === id);

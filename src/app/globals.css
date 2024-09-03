@@ -18,15 +18,50 @@
 
 body {
   background-color: aliceblue;
-
 }
 
-h1, h2, h3 {
-  font-family: 'Fraunces', serif;
+h1,
+h2,
+h3 {
+  font-family: "Fraunces", serif;
 }
 
-p, .text-open-sans {
-  font-family: 'Open Sans', sans-serif;
+p,
+.text-open-sans {
+  font-family: "Open Sans", sans-serif;
+}
+
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  position: relative;
+  min-width: 100%;
+  padding: 10px;
+}
+
+.embla__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.embla__button--prev {
+  left: 10px;
+}
+
+.embla__button--next {
+  right: 10px;
 }
 
 @layer utilities {
@@ -38,7 +73,5 @@ p, .text-open-sans {
 @layer base {
   :root {
     --radius: 0.5rem;
-
   }
-
 }

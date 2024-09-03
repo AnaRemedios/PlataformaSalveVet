@@ -1,48 +1,53 @@
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React from 'react';
-import Slider from "react-slick";
+import useEmblaCarousel from 'embla-carousel-react';
+import React, { useCallback } from 'react';
 import CardVeterinarios from './cardveterinarios';
+
 
 interface CarouselVeterinariosProps {
   veterinariansIds: string[]; // Lista de IDs
 }
 
 const CarouselVeterinarios: React.FC<CarouselVeterinariosProps> = ({ veterinariansIds }) => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, slidesToScroll: 1, align: 'start' }); // Configurações do carrossel
 
-  const queryClient = new QueryClient(); // Criação do QueryClient
+  const queryClient = new QueryClient();
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Slider {...settings}>
-        {veterinariansIds.map(id => (
-          <CardVeterinarios key={id} id={id} />
-        ))}
-      </Slider>
+      <div className="embla relative" ref={emblaRef}>
+        <div className="embla__container flex">
+          {veterinariansIds.map(id => (
+            <div className="embla__slide min-w-[25%] p-4" key={id}>
+              <CardVeterinarios id={id} />
+            </div>
+          ))}
+        </div>
+        <button
+          className="embla__button embla__button--prev absolute left-4 top-1/2 transform -translate-y-1/2 z-10"
+          onClick={scrollPrev}
+          style={{ background: 'none', border: 'none', color: '#000' }} // Remover fundo e ajustar cor do ícone
+        >
+          <ArrowBackIosIcon />
+        </button>
+        <button
+          className="embla__button embla__button--next absolute right-4 top-1/2 transform -translate-y-1/2 z-10"
+          onClick={scrollNext}
+          style={{ background: 'none', border: 'none', color: '#000' }} // Remover fundo e ajustar cor
+        >
+          <ArrowForwardIosIcon />
+        </button>
+      </div>
     </QueryClientProvider>
   );
 };
