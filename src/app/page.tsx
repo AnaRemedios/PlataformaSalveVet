@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function Home() {
 
-  const veterinariansIds = ['1', '2', '7', '8', '9']; // IDs dos veterinários simulados
+  const veterinariansIds = ['1', '2', '7', '8', '9', '10', '11']; // IDs dos veterinários simulados
 
   return (
 
@@ -67,7 +67,7 @@ export default function Home() {
       </div>
 
       {/* Carrossel de Veterinários */}
-      <div className="flex justify-center mt-8">
+      <div className="flex justify-center mt-10 mb-10">
         <CarouselVeterinarios veterinariansIds={veterinariansIds} />
       </div>
 

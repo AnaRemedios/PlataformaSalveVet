@@ -2,7 +2,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import useEmblaCarousel from 'embla-carousel-react';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import CardVeterinarios from './cardveterinarios';
 
 
@@ -11,7 +11,7 @@ interface CarouselVeterinariosProps {
 }
 
 const CarouselVeterinarios: React.FC<CarouselVeterinariosProps> = ({ veterinariansIds }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, slidesToScroll: 1, align: 'start' }); // Configurações do carrossel
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, slidesToScroll: 1, align: 'start', }); // Configurações do carrossel
 
   const queryClient = new QueryClient();
 
@@ -23,12 +23,22 @@ const CarouselVeterinarios: React.FC<CarouselVeterinariosProps> = ({ veterinaria
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
+  useEffect(() => {
+    if (emblaApi) {
+      emblaApi.on('select', () => {
+        if (!emblaApi.canScrollNext()) {
+          emblaApi.scrollTo(0);
+        }
+      });
+    }
+  }, [emblaApi]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="embla relative" ref={emblaRef}>
         <div className="embla__container flex">
           {veterinariansIds.map(id => (
-            <div className="embla__slide min-w-[25%] p-4" key={id}>
+            <div className="embla__slide flex-[0_0_25%]  p-4" key={id}>
               <CardVeterinarios id={id} />
             </div>
           ))}
