@@ -80,40 +80,52 @@ export default function Home() {
       />
 
       {/* Parte Tutor */}
-      <div className="flex flex-col md:flex-row items-center justify-between mt-10 bg-[#FFFDF8] px-4 md:px-0">
-        {/* Coluna da esquerda */}
-        <div className="flex flex-col justify-center ml-0 md:ml-48 text-center md:text-left">
-          <h1 className="font-fraunces text-4xl md:text-5xl mb-4">Para Tutores</h1>
-          <p className="font-open-sans md:text-2xl mb-8 md:mb-12">
-            Entendemos que o seu tempo é <br /> precioso e que a saúde do seu pet é <br /> prioridade.
-            Nossa plataforma oferece uma<br /> solução completa, onde você pode <br /> agendar consultas domiciliares ou <br /> teleconsultas com veterinários <br /> qualificados de forma rápida e <br /> prática.
-          </p>
-          <Image
-            src="/assets/images/webTutor1.svg"
-            alt="foto de tutor"
-            width={220}
-            height={200}
-            className="hidden md:block"
-          />
-        </div>
+<div className="flex flex-col items-center justify-between bg-[#FFFDF8] px-6 md:px-24 py-8">
+  {/* Título Centralizado */}
+  <h1 className="font-fraunces text-3xl md:text-4xl mb-4 text-center p-8">
+    Para Tutores
+  </h1>
 
-        {/* Coluna da direita */}
-        <div className="flex flex-col justify-center items-center gap-6 mt-8 md:mt-0 mr-0 md:mr-20">
-          <Image
-            src="/assets/images/webTutor2.svg"
-            alt="gatinho"
-            width={260}
-            height={240}
-            className="hidden md:block"
-          />
-          <p className="font-open-sans md:text-2xl text-center md:text-left mb-4">
-            Esqueça a burocracia e as <br /> dificuldades no pagamento dos <br /> serviços veterinários.<br />
-            Na SalveVet, você pode pagar <br /> diretamente pela plataforma usando <br /> PIX ou cartões de crédito, com total <br /> segurança e praticidade.<br />
-            Experimente a conveniência e a <br /> confiança de cuidar do seu amigo <br /> peludo com a SalveVet.
-          </p>
-          <ButtonLoginTutor />
-        </div>
-      </div>
+  {/* Colunas */}
+  <div className="flex flex-col md:flex-row items-center justify-between w-full">
+    {/* Coluna da esquerda */}
+    <div className="flex flex-col justify-center text-center md:text-left gap-6 p-10 md:ml-20">
+      <p className="font-open-sans md:text-2xl mb-8 md:mb-12">
+        Entendemos que o seu tempo é <br /> precioso e que a saúde do seu pet é <br /> prioridade.
+        Nossa plataforma oferece uma<br /> solução completa, onde você pode <br /> agendar consultas domiciliares ou <br /> teleconsultas com veterinários <br /> qualificados de forma rápida e <br /> prática.
+      </p>
+      <Image
+        src="/assets/images/webTutor1.svg"
+        alt="foto de tutor"
+        width={300}
+        height={260}
+        className="hidden md:block mx-auto md:mx-0"
+      />
+    </div>
+
+    {/* Coluna da direita */}
+    <div className="flex flex-col justify-center items-center text-center md:text-left gap-6 p-10  mt-8 md:mt-0 md:mr-20">
+      <Image
+        src="/assets/images/webTutor2.svg"
+        alt="gatinho"
+        width={300}
+        height={260}
+        className="md:block mx-auto md:mx-0"
+      />
+      <p className="font-open-sans md:text-2xl mb-4">
+        Esqueça a burocracia e as <br /> dificuldades no pagamento dos <br /> serviços veterinários.<br />
+        Na SalveVet, você pode pagar <br /> diretamente pela plataforma usando <br /> PIX ou cartões de crédito, com total <br /> segurança e praticidade.<br />
+        Experimente a conveniência e a <br /> confiança de cuidar do seu amigo <br /> peludo com a SalveVet.
+      </p>
+    </div>
+  </div>
+
+  {/* Botão Centralizado */}
+  <div className="flex justify-center p-10">
+    <ButtonLoginTutor />
+  </div>
+</div>
+
 
       <Divider
         sx={{ my: 0 }}
@@ -186,10 +198,20 @@ export default function Home() {
 
       </div>
 
+      <Divider
+        sx={{ my: 0 }}
+        className="border-2 border-[#1D7263] shadow-xl rounded-lg"
+      />
+
       {/* Carrossel de Posts do Blog */}
       <div className="flex justify-center mt-10 mb-10">
         <CarouselBlog postIds={postIds} />
       </div>
+
+      <Divider
+        sx={{ my: 0 }}
+        className="border-2 border-[#1D7263] shadow-xl rounded-lg"
+      />
 
     </main>
   );

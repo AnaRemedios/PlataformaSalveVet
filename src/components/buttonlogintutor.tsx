@@ -22,7 +22,8 @@ const StyledButton = styled(Button)(({ theme }) => ({
   '&:hover': {
     backgroundColor: '#FFB641', // cor de fundo no hover
     color: '#FFFFFF', // cor do texto no hover
-    boxShadow: 'none',
+    transform: 'scale(1.1)', // Aumenta o botão ligeiramente no hover
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)', // Sombra mais profunda no hover
   },
   [theme.breakpoints.down('sm')]: { // Ajuste para telas pequenas
     padding: '4px 8px',
