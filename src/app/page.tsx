@@ -4,6 +4,7 @@ import ButtonLoginVet from "@/components/buttonloginvet";
 import CardBuscar from "@/components/cardbuscar";
 import CarouselBlog from "@/components/carouselpostblog";
 import CarouselVeterinarios from "@/components/carouselveterinarios";
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { Divider } from "@mui/material";
 import Image from "next/image";
@@ -14,7 +15,7 @@ import Link from "next/link";
 export default function Home() {
 
   const veterinariansIds = ['1', '2', '7', '8', '9', '10', '11']; // IDs dos veterinários simulados
-  const postIds = ['1', '2', '3', '4'];
+  const postIds = ['1', '2', '3', '4','5', '6', '7', '8', '9', '10']; // IDs dos posts simulados
   return (
 
     <main >
@@ -61,7 +62,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex justify-center mt-28">
+      <div className="flex justify-center mt-28 p-8">
         <Link href="/veterinarios"> {/* direciona pro marketingplace */}
           <h1 className="font-fraunces text-colortext hover:underline text-2xl md:text-4xl">
             Encontre o melhor Veterinário para você!
@@ -132,76 +133,83 @@ export default function Home() {
         className="border-2 border-[#1D7263] shadow-xl rounded-lg"
       />
 
-      {/* Parte Veterinários */}
-      <div className="flex flex-col md:flex-row items-center justify-between mt-10 bg-[#DFD7FF] relative">
-        {/* Título Centralizado no Topo */}
-        <div className="absolute top-0 left-0 w-full flex justify-center mt-4">
-          <h1 className="font-fraunces text-4xl md:text-5xl text-center">
-            Para Veterinários
-          </h1>
-        </div>
+     {/* Parte Veterinários */}
+  <div className="flex flex-col md:flex-row items-center justify-between p-8 bg-[#DFD7FF] py-16 relative">
+  {/* Título Centralizado no Topo */}
+  <div className="absolute top-0 left-0 w-full flex justify-center">
+    <h1 className="font-fraunces text-3xl md:text-4xl text-center p-12 mt-8">
+      Para Veterinários
+    </h1>
+  </div>
 
-        {/* Coluna da Esquerda com as Imagens */}
-        <div className="flex flex-col justify-center items-start ml-0 md:ml-48 mt-20">
-          <Image
-            src="/assets/images/webVet1.svg"
-            alt="imagem médica"
-            width={220}
-            height={200}
-            className="mb-8"
-          />
-          <Image
-            src="/assets/images/webVet2.svg"
-            alt="veterinária"
-            width={260}
-            height={240}
-            className="relative -ml-10 mt-4"
-            style={{ zIndex: 10 }}
-          />
-        </div>
+  {/* Coluna da Esquerda com as Imagens */}
+  <div className="flex flex-col justify-center items-start ml-0 md:ml-48 mt-28">
+    <Image
+      src="/assets/images/webVet1.svg"
+      alt="procedimento médico"
+      width={300}
+      height={260}
+      className="mb-10 ml-10"
+    />
+    <Image
+      src="/assets/images/webVet2.svg"
+      alt="veterinária"
+      width={300}
+      height={260}
+      className="relative -ml-10 mt-4"
+      style={{ zIndex: 10 }}
+    />
+  </div>
 
-        {/* Coluna da Direita com h5 e p */}
-        <div className="flex flex-col justify-center items-start gap-10 mt-8 md:mt-0 mr-0 md:mr-20">
-          {/* Primeira dupla de h3 e p */}
-          <div className="ml-0 md:ml-10">
-            <h3 className="font-open-sans underline">Expanda Sua Base de Clientes com Facilidade:</h3>
-            <p className="font-open-sans md:text-2xl mt-4">
-              A SalveVet é a plataforma ideal para você, veterinário, <br />
-              que deseja se conectar com novos clientes e expandir <br />
-              sua base de atendimento. <br /> <br />
-              Você pode oferecer consultas domiciliares e <br />
-              teleconsultas, alcançando tutores de pets que <br />
-              precisam dos seus serviços de maneira rápida e prática.
-            </p>
-          </div>
+  {/* Coluna da Direita com h3 e p */}
+  <div className="flex flex-col justify-center items-start gap-16 mt-8 md:mt-0 mr-0 md:mr-20">
+    {/* Primeira dupla de h3 e p */}
+    <div className="ml-0 md:ml-8 mr-10 mt-40">
+      <h2 className="font-open-sans underline md:text-2xl">Expanda Sua Base de Clientes com Facilidade:</h2>
+      <p className="font-open-sans md:text-2xl mt-4">
+        A SalveVet é a plataforma ideal para você, veterinário, <br />
+        que deseja se conectar com novos clientes e expandir <br />
+        sua base de atendimento. <br /> <br />
+        Você pode oferecer consultas domiciliares e <br />
+        teleconsultas, alcançando tutores de pets que <br />
+        precisam dos seus serviços de maneira rápida e prática.
+      </p>
+    </div>
 
-          {/* Segunda dupla de h5 e p */}
-          <div className="ml-0 md:ml-20">
-            <h3 className="font-open-sans underline">Perfil Profissional e Gestão Centralizada:</h3>
-            <p className="font-open-sans md:text-2xl mt-4">
-              Apresente-se de forma profissional com um <br />
-              perfil completo na SalveVet e destaque suas <br />
-              qualificações e especializações.<br /> <br />
-              Gerencie suas consultas e documentações de <br />
-              forma centralizada. <br /> <br />
-              Simplifique a gestão de sua carreira e foque <br />
-              no que você faz de melhor: cuidar dos animais.
-            </p>
-          </div>
+    {/* Segunda dupla de h3 e p */}
+    <div className="ml-0 md:ml-40 mt-6">
+      <h2 className="font-open-sans underline md:text-2xl">Perfil Profissional e Gestão Centralizada:</h2>
+      <p className="font-open-sans md:text-2xl mt-4">
+        Apresente-se de forma profissional com um <br />
+        perfil completo na SalveVet e destaque suas <br />
+        qualificações e especializações.<br /> <br />
+        Gerencie suas consultas e documentações de <br />
+        forma centralizada. <br /> <br />
+        Simplifique a gestão de sua carreira e foque <br />
+        no que você faz de melhor: cuidar dos animais.
+      </p>
+    </div>
 
-          {/* Botão no lado direito */}
-          <div className="self-end">
-            <ButtonLoginVet />
-          </div>
+    {/* Botão Centralizado na Direção do Título */}
+    <div className="self-center mt-8">
+      <ButtonLoginVet />
+    </div>
+  </div>
+</div>
 
-        </div>
-
-      </div>
 
       <Divider
         sx={{ my: 0 }}
         className="border-2 border-[#1D7263] shadow-xl rounded-lg"
       />
+
+    <div className="flex justify-center p-16">
+        <Link href="/blog"> {/* direciona pro blog */}
+          <h1 className="font-fraunces text-colortext hover:underline text-2xl md:text-4xl">
+          Confira os conteúdos do nosso Blog
+          </h1>
+        </Link>
+      </div>
 
       {/* Carrossel de Posts do Blog */}
       <div className="flex justify-center mt-10 mb-10">
@@ -213,6 +221,7 @@ export default function Home() {
         className="border-2 border-[#1D7263] shadow-xl rounded-lg"
       />
 
+      <Footer />
     </main>
   );
 }

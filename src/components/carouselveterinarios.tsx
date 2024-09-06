@@ -38,20 +38,20 @@ const CarouselVeterinarios: React.FC<CarouselVeterinariosProps> = ({ veterinaria
       <div className="embla relative" ref={emblaRef}>
         <div className="embla__container flex">
           {veterinariansIds.map(id => (
-            <div className="embla__slide flex-[0_0_25%]  p-4" key={id}>
+            <div className="embla__slide flex-[0_0_25%] " key={id}>
               <CardVeterinarios id={id} />
             </div>
           ))}
         </div>
         <button
-          className="embla__button embla__button--prev absolute left-4 top-1/2 transform -translate-y-1/2 z-10"
+          className="embla__button embla__button--prev absolute left-1 top-1/2 transform -translate-y-1/2 z-10"
           onClick={scrollPrev}
           style={{ background: 'none', border: 'none', color: '#000' }} // Remover fundo e ajustar cor do ícone
         >
           <ArrowBackIosIcon />
         </button>
         <button
-          className="embla__button embla__button--next absolute right-4 top-1/2 transform -translate-y-1/2 z-10"
+          className="embla__button embla__button--next absolute right-1 top-1/2 transform -translate-y-1/2 z-10"
           onClick={scrollNext}
           style={{ background: 'none', border: 'none', color: '#000' }} // Remover fundo e ajustar cor
         >

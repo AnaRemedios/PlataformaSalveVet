@@ -17,7 +17,7 @@ const fetchPost = async (id: string): Promise<Post> => {
     const simulatedPosts: Post[] = [
       {
         id: '1',
-        title: 'Como Cuidar de um Pet Idoso',
+        title: 'Cães e Gatos: Como Promover uma Convivência Pacífica',
         image: '/assets/images/blog1.svg',
         excerpt: 'Aprenda a cuidar de pets idosos e garantir qualidade de vida.',
       },
@@ -65,13 +65,13 @@ const fetchPost = async (id: string): Promise<Post> => {
       },
       {
         id: '9',
-        title: 'Os Benefícios do Banho e Tosa Regulares',
+        title: 'Como Cuidar de um Pet Idoso',
         image: '/assets/images/blog9.svg',
         excerpt: 'Entenda como o banho e a tosa podem melhorar a saúde do seu pet.',
       },
       {
         id: '10',
-        title: 'Cães e Gatos: Como Promover uma Convivência Pacífica',
+        title: 'Os Benefícios do Banho e Tosa Regulares ',
         image: '/assets/images/blog10.svg',
         excerpt: 'Dicas para fazer cães e gatos conviverem harmoniosamente.',
       }

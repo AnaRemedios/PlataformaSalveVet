@@ -5,13 +5,12 @@ import useEmblaCarousel from 'embla-carousel-react';
 import React, { useCallback, useEffect } from 'react';
 import CardPostBlog from './cardpostblog';
 
-
 interface CarouselBlogProps {
   postIds: string[]; // Lista de IDs dos posts
 }
 
 const CarouselBlog: React.FC<CarouselBlogProps> = ({ postIds }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, slidesToScroll: 1, align: 'start' });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, slidesToScroll: 1, align: 'center' });
 
   const queryClient = new QueryClient();
 
@@ -35,23 +34,23 @@ const CarouselBlog: React.FC<CarouselBlogProps> = ({ postIds }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="embla relative" ref={emblaRef}>
+      <div className="embla relative mx-auto" ref={emblaRef} style={{ maxWidth: '90%' }}>
         <div className="embla__container flex">
           {postIds.map(id => (
-            <div className="embla__slide flex-[0_0_25%]  p-4" key={id}>
+            <div className="embla__slide flex-[0_0_30%] " key={id}>
               <CardPostBlog id={id} />
             </div>
           ))}
         </div>
         <button
-          className="embla__button embla__button--prev absolute left-4 top-1/2 transform -translate-y-1/2 z-10"
+          className="embla__button embla__button--prev absolute left-0 top-1/2 transform -translate-y-1/2 z-10"
           onClick={scrollPrev}
           style={{ background: 'none', border: 'none', color: '#000' }}
         >
           <ArrowBackIosIcon />
         </button>
         <button
-          className="embla__button embla__button--next absolute right-4 top-1/2 transform -translate-y-1/2 z-10"
+          className="embla__button embla__button--next absolute right-0 top-1/2 transform -translate-y-1/2 z-10"
           onClick={scrollNext}
           style={{ background: 'none', border: 'none', color: '#000' }}
         >
