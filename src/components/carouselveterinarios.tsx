@@ -11,7 +11,16 @@ interface CarouselVeterinariosProps {
 }
 
 const CarouselVeterinarios: React.FC<CarouselVeterinariosProps> = ({ veterinariansIds }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, slidesToScroll: 1, align: 'start', }); // Configurações do carrossel
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    slidesToScroll: 1,
+    align: 'center', // Centraliza o carrossel
+    breakpoints: {
+      '(max-width: 640px)': { slidesToScroll: 1 }, // 1 slide visível em telas pequenas
+      '(min-width: 641px) and (max-width: 1024px)': { slidesToScroll: 2 }, // 2 slides visíveis em tablets
+      '(min-width: 1025px)': { slidesToScroll: 4 }, // 4 slides visíveis em telas grandes
+    },
+  });
 
   const queryClient = new QueryClient();
 
@@ -46,14 +55,14 @@ const CarouselVeterinarios: React.FC<CarouselVeterinariosProps> = ({ veterinaria
         <button
           className="embla__button embla__button--prev absolute left-1 top-1/2 transform -translate-y-1/2 z-10"
           onClick={scrollPrev}
-          style={{ background: 'none', border: 'none', color: '#000' }} // Remover fundo e ajustar cor do ícone
+          style={{ background: 'none', border: 'none', color: '#000' }}
         >
           <ArrowBackIosIcon />
         </button>
         <button
           className="embla__button embla__button--next absolute right-1 top-1/2 transform -translate-y-1/2 z-10"
           onClick={scrollNext}
-          style={{ background: 'none', border: 'none', color: '#000' }} // Remover fundo e ajustar cor
+          style={{ background: 'none', border: 'none', color: '#000' }}
         >
           <ArrowForwardIosIcon />
         </button>

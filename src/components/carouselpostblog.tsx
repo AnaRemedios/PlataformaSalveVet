@@ -10,7 +10,12 @@ interface CarouselBlogProps {
 }
 
 const CarouselBlog: React.FC<CarouselBlogProps> = ({ postIds }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, slidesToScroll: 1, align: 'center' });
+  // Alterando o alinhamento e a largura dos slides com base no tamanho da tela
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    slidesToScroll: 1,
+    align: 'center',
+  });
 
   const queryClient = new QueryClient();
 
@@ -37,7 +42,10 @@ const CarouselBlog: React.FC<CarouselBlogProps> = ({ postIds }) => {
       <div className="embla relative mx-auto" ref={emblaRef} style={{ maxWidth: '90%' }}>
         <div className="embla__container flex">
           {postIds.map(id => (
-            <div className="embla__slide flex-[0_0_30%] " key={id}>
+            <div className="embla__slide p-4" // Flexibilidade para o número de cards visíveis
+              style={{ flex: '0 0 30%', maxWidth: '30%' }} // Para telas grandes
+              key={id}
+            >
               <CardPostBlog id={id} />
             </div>
           ))}

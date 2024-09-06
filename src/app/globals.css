@@ -43,9 +43,40 @@ p,
 
 .embla__slide {
   position: relative;
-  min-width: 25%; /* Largura mínima de 25% para garantir 4 slides visíveis */
   box-sizing: border-box;
   padding: 10px;
+}
+
+@media (min-width: 1024px) {
+  .embla__slide {
+    min-width: 25%; /* 4 slides visíveis em telas grandes */
+  }
+}
+
+@media (max-width: 640px) {
+  .embla__slide {
+    min-width: 100%; /* Exibir apenas 1 slide em telas menores */
+    padding: 8px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .embla__slide {
+    min-width: 50%; /* Exibir 2 slides em tablets */
+    padding: 10px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .embla__slide {
+    min-width: 50%; /* 2 slides visíveis em tablets */
+  }
+}
+
+@media (max-width: 767px) {
+  .embla__slide {
+    min-width: 100%; /* 1 slide visível em celulares */
+  }
 }
 
 .embla__button {
