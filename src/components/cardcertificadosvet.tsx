@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import { Box, Typography, IconButton, Button, Card, CardContent, CardMedia } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useSession } from 'next-auth/react';
+import { Box, Button, Card, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
+import { useState } from 'react';
 
 interface Certificate {
   name: string;
@@ -14,15 +13,13 @@ interface CardCertificadosVetProps {
   id: string;
   certificates: Certificate[];
   onSave: (updatedCertificates: Certificate[]) => void;
+  isOwner: boolean;
 }
 
-export default function CardCertificadosVet({ id, certificates, onSave }: CardCertificadosVetProps) {
-  const { data: session } = useSession();
+export default function CardCertificadosVet({ id, certificates, onSave, isOwner }: CardCertificadosVetProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [certificatesList, setCertificatesList] = useState(certificates || []);
   const [newCertificate, setNewCertificate] = useState<File | null>(null);
-
-  const isOwner = session?.user?.id === id;
 
   // Adiciona um novo certificado
   const handleAddCertificate = () => {

@@ -1,37 +1,37 @@
 'use client';
-import { useVeterinarian } from '@/hook/useVeterinarian'; // Hook que busca os dados do veterinário
-import { Card, CardContent, CardMedia, Typography, Box, Avatar, Button, IconButton } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import ComputerIcon from '@mui/icons-material/Computer';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CameraAltIcon from '@mui/icons-material/CameraAlt'; // Ícone de câmera
+import ComputerIcon from '@mui/icons-material/Computer';
 import EditIcon from '@mui/icons-material/Edit'; // Ícone de caneta
-import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react'; // Para verificar a sessão do usuário
+import HomeIcon from '@mui/icons-material/Home';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Avatar, Box, Card, CardMedia, IconButton, Typography } from '@mui/material';
 import { useState } from 'react';
 
 interface CardImagemVetProps {
-  id: string; // ID do veterinário
+  id: string;
+  coverImage?: string;
+  profileImage?: string;
+  name: string;
+  badge?: string;
+  location: string;
+  attendanceType: 'domicilio' | 'online';
+  isOwner: boolean;
+  onSave: (updatedData: any) => void;
 }
 
-export default function CardImagemVet({ id }: { id: string }) {
-  const { data: veterinarian, isLoading, error } = useVeterinarian(id);
-  const router = useRouter();
-  const { data: session } = useSession(); // Obtém os dados da sessão do usuário
+export default function CardImagemVet({
+  id,
+  coverImage,
+  profileImage,
+  name,
+  badge,
+  location,
+  attendanceType,
+  isOwner,
+  onSave,
+}: CardImagemVetProps) {
   const [isEditing, setIsEditing] = useState(false); // Controla o modo de edição
 
-  // Verifica se o usuário logado é o próprio veterinário
-  const isOwner = session?.user?.id === id;
-
-  if (isLoading) {
-    return <div>Carregando...</div>;
-  }
-
-  if (error || !veterinarian) {
-    return <div>Erro ao carregar os dados do veterinário.</div>;
-  }
-
-  // Função para alternar o modo de edição
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
   };
@@ -43,15 +43,11 @@ export default function CardImagemVet({ id }: { id: string }) {
         <CardMedia
           component="img"
           height="200"
-          image={veterinarian.coverImage || '/assets/images/default-cover.svg'} // Imagem de capa simulada ou default
+          image={coverImage || '/assets/images/default-cover.svg'}
           alt="Imagem de capa"
         />
-        {/* Ícone para trocar imagem de capa (aparece apenas no modo de edição) */}
         {isOwner && isEditing && (
-          <IconButton
-            sx={{ position: 'absolute', top: 8, right: 8 }}
-            onClick={() => console.log('Alterar imagem de capa')}
-          >
+          <IconButton sx={{ position: 'absolute', top: 8, right: 8 }} onClick={() => console.log('Alterar imagem de capa')}>
             <CameraAltIcon />
           </IconButton>
         )}
@@ -59,57 +55,44 @@ export default function CardImagemVet({ id }: { id: string }) {
 
       {/* Avatar e informações principais */}
       <Box sx={{ position: 'relative', top: '-40px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {/* Foto de perfil */}
         <Avatar
-          alt={veterinarian.name}
-          src={veterinarian.image || '/assets/images/default-profile.svg'}
-          sx={{ width: 120, height: 120, border: '3px solid white' }} // Ajusta o tamanho e a borda da foto de perfil
+          alt={name}
+          src={profileImage || '/assets/images/default-profile.svg'}
+          sx={{ width: 120, height: 120, border: '3px solid white' }}
         />
 
-        {/* Ícone para trocar foto de perfil (aparece apenas no modo de edição) */}
         {isOwner && isEditing && (
-          <IconButton
-            sx={{ position: 'absolute', top: 80, right: 'calc(50% - 60px)' }}
-            onClick={() => console.log('Alterar foto de perfil')}
-          >
+          <IconButton sx={{ position: 'absolute', top: 80, right: 'calc(50% - 60px)' }} onClick={() => console.log('Alterar foto de perfil')}>
             <CameraAltIcon />
           </IconButton>
         )}
 
         {/* Nome e Badge */}
         <Typography variant="h5" sx={{ mt: 2, fontWeight: 'bold' }}>
-          {veterinarian.name}
+          {name}
         </Typography>
         <Typography variant="subtitle1" sx={{ color: 'gray' }}>
-          {veterinarian.badge}
+          {badge || 'Nenhuma especialidade'}
         </Typography>
 
         {/* Localização e Tipo de Atendimento */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
           <LocationOnIcon fontSize="small" />
-          <Typography variant="body2">{veterinarian.location}</Typography>
+          <Typography variant="body2">{location}</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-          {veterinarian.attendanceType === 'domicilio' ? (
+          {attendanceType === 'domicilio' ? (
             <HomeIcon fontSize="small" />
           ) : (
             <ComputerIcon fontSize="small" />
           )}
           <Typography variant="body2">
-            {veterinarian.attendanceType === 'domicilio' ? 'Atendimento a Domicílio' : 'Atendimento Online'}
+            {attendanceType === 'domicilio' ? 'Atendimento a Domicílio' : 'Atendimento Online'}
           </Typography>
         </Box>
       </Box>
 
-      {/* Botão para "Fale com este profissional" */}
-      <Box sx={{ textAlign: 'center', mt: 3 }}>
-        <Button variant="contained" color="primary" onClick={() => router.push(`/contato/${veterinarian.id}`)}>
-          Fale com este profissional
-        </Button>
-      </Box>
-
-      {/* Ícone para editar o perfil (aparece apenas se o usuário for o proprietário do perfil) */}
       {isOwner && (
         <Box sx={{ textAlign: 'center', mt: 2 }}>
           <IconButton onClick={toggleEditMode}>

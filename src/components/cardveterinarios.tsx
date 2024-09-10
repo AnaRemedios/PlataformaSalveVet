@@ -11,12 +11,19 @@ import Link from 'next/link';
 export default function CardVeterinarios({ id }: { id: string }) {
   const { data: veterinarian, isLoading, error } = useVeterinarian(id);
 
+  console.log("Veterinarian ID:", veterinarian?.id);
+
   if (isLoading) {
     return <div>Carregando...</div>; //  indicador de carregamento
   }
 
   if (error || !veterinarian) {
     return <div>Erro ao carregar os dados do veterinário.</div>; // mensagem de erro
+  }
+
+  // Verifique se o veterinarian.id está disponível antes de renderizar o Link
+  if (!veterinarian?.id) {
+    return <div>Erro ao carregar os dados do veterinário. ID não encontrado.</div>;
   }
 
   return (
@@ -55,7 +62,7 @@ export default function CardVeterinarios({ id }: { id: string }) {
         />
         <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} >
           {/* Nome do Veterinário */}
-          <Typography gutterBottom variant="h6" component="div"  sx={{ textAlign: 'center' }} >
+          <Typography gutterBottom variant="h6" component="div" sx={{ textAlign: 'center' }} >
             {veterinarian.name}
           </Typography>
 

@@ -1,26 +1,25 @@
 'use client';
-import { useState } from 'react';
-import { Box, Card, CardContent, Typography, TextField, Button, IconButton } from '@mui/material';
-import { Edit, Save, Add } from '@mui/icons-material';
+import { Add, Edit, Save } from '@mui/icons-material';
+import { Box, Button, Card, CardContent, IconButton, TextField, Typography } from '@mui/material';
 import { useSession } from 'next-auth/react';
+import { useState } from 'react';
 
 interface CardFormacaoAcademicaVetProps {
   id: string;
   academicBackground?: string[]; // Lista de formações acadêmicas
   onSave: (newFormacao: string[]) => void; // Função para salvar alterações
+  isOwner: boolean; // Se o usuário é o dono do perfil
 }
 
 export default function CardFormacaoAcademicaVet({
   id,
   academicBackground = [],
   onSave,
+  isOwner,
 }: CardFormacaoAcademicaVetProps) {
   const { data: session } = useSession();
   const [isEditing, setIsEditing] = useState(false);
   const [formacoes, setFormacoes] = useState(academicBackground); // Estado local para armazenar as formações
-
-  // Verifica se o veterinário logado é o proprietário do perfil
-  const isOwner = session?.user?.id === id;
 
   const handleSave = () => {
     onSave(formacoes); // Chama a função para salvar as alterações

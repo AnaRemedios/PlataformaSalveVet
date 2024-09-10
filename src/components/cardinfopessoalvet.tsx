@@ -1,35 +1,38 @@
 'use client';
-import { useState } from 'react';
-import { useSession } from 'next-auth/react'; // Autenticação para verificar se é o dono do perfil
-import { useVeterinarian } from '@/hook/useVeterinarian'; // Hook que busca os dados do veterinário
-import { Box, Card, CardContent, Typography, TextField, Button, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import { Box, Button, Card, CardContent, IconButton, TextField, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 interface CardInfoPessoalVetProps {
   id: string; // ID do veterinário
+  bio?: string; // Biografia do veterinário
+  services?: string[]; // Serviços prestados pelo veterinário
+  isOwner: boolean; // Verifica se o usuário é o proprietário do perfil
+  onSave: (updatedData: any) => void; // Função de salvamento
 }
 
-export default function CardInfoPessoalVet({ id }: { id: string }) {
-  const { data: session } = useSession(); // Verifica sessão para saber se é o veterinário logado
-  const { data: veterinarian, isLoading, error } = useVeterinarian(id);
+export default function CardInfoPessoalVet({
+  id,
+  bio = '',
+  services = [],
+  isOwner,
+  onSave,
+}: CardInfoPessoalVetProps) {
   const [isEditing, setIsEditing] = useState(false); // Estado para alternar entre edição e visualização
   const [formData, setFormData] = useState({
-    bio: veterinarian?.bio || '',
-    services: veterinarian?.services?.join(', ') || '', // Converte array de serviços para string separada por vírgulas ou define um valor padrão
-    attendanceType: veterinarian?.attendanceType || '',
+    bio,
+    services: services.join(', '), // Converte array de serviços para string separada por vírgulas
+    attendanceType: '', // Atualize isso com a lógica correta
   });
 
-  if (isLoading) {
-    return <div>Carregando...</div>;
-  }
-
-  if (error || !veterinarian) {
-    return <div>Erro ao carregar os dados do veterinário.</div>;
-  }
-
-  // Verifica se o usuário logado é o dono do perfil
-  const isOwner = session?.user?.id === id;
+  useEffect(() => {
+    setFormData({
+      bio,
+      services: services.join(', '), // Atualiza o estado local quando o componente for montado
+      attendanceType: '', // Atualize isso com a lógica correta
+    });
+  }, [bio, services]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -37,8 +40,7 @@ export default function CardInfoPessoalVet({ id }: { id: string }) {
   };
 
   const handleSave = () => {
-    // Lógica para salvar as alterações (pode chamar um hook de atualização aqui)
-    console.log('Dados atualizados:', formData);
+    onSave(formData); // Chama a função de salvamento passada por props
     setIsEditing(false); // Volta para a visualização após salvar
   };
 
@@ -53,7 +55,7 @@ export default function CardInfoPessoalVet({ id }: { id: string }) {
           {/* Exibe o botão de editar apenas para o dono do perfil */}
           {isOwner && (
             <IconButton onClick={() => setIsEditing(!isEditing)}>
-              {isEditing ? <SaveIcon /> : <EditIcon />}
+              {isEditing ? <SaveIcon onClick={handleSave} /> : <EditIcon />}
             </IconButton>
           )}
         </Box>
@@ -61,14 +63,6 @@ export default function CardInfoPessoalVet({ id }: { id: string }) {
         {/* Versão de Edição */}
         {isEditing ? (
           <Box component="form" mt={2}>
-            <TextField
-              fullWidth
-              name="attendanceType"
-              label="Forma de Atendimento"
-              value={formData.attendanceType}
-              onChange={handleInputChange}
-              margin="normal"
-            />
             <TextField
               fullWidth
               name="bio"
@@ -95,24 +89,15 @@ export default function CardInfoPessoalVet({ id }: { id: string }) {
           // Versão de Visualização
           <Box mt={2}>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mt: 2 }}>
-              Forma de Atendimento:
-            </Typography>
-            <Typography variant="body1">
-              {veterinarian.attendanceType === 'domicilio' ? 'Atendimento a Domicílio' : 'Atendimento Online'}
-            </Typography>
-
-            <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mt: 2 }}>
               Sobre:
             </Typography>
-            <Typography variant="body1">{veterinarian.bio || 'Nenhuma informação disponível.'}</Typography>
+            <Typography variant="body1">{bio || 'Nenhuma informação disponível.'}</Typography>
 
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mt: 2 }}>
               Serviços Prestados:
             </Typography>
             <Typography variant="body1">
-              {veterinarian.services && veterinarian.services.length > 0
-                ? veterinarian.services.join(', ')
-                : 'Nenhum serviço cadastrado.'}
+              {services && services.length > 0 ? services.join(', ') : 'Nenhum serviço cadastrado.'}
             </Typography>
           </Box>
         )}

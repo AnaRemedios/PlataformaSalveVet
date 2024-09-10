@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Box, Button, TextField, Typography, IconButton } from '@mui/material';
+'use client';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
 import { useSession } from 'next-auth/react';
-import { useVeterinarian } from '@/hook/useVeterinarian'; // Hook para buscar dados do veterinário
+import { useState } from 'react';
 
 interface ProfessionalExperience {
   title: string;
@@ -14,30 +14,20 @@ interface ProfessionalExperience {
 
 interface CardExperienciaProfissionalVetProps {
   id: string; // ID do veterinário
+  professionalExperience: ProfessionalExperience[]; // Experiência profissional
+  isOwner: boolean; // Indica se é o proprietário
   onSave: (updatedExperience: ProfessionalExperience[]) => void; // Função de salvar as atualizações
 }
 
-export default function CardExperienciaProfissionalVet({ id, onSave }: CardExperienciaProfissionalVetProps) {
+export default function CardExperienciaProfissionalVet({
+  id,
+  professionalExperience,
+  isOwner,
+  onSave,
+}: CardExperienciaProfissionalVetProps) {
   const { data: session } = useSession();
-  const { data: veterinarian, isLoading, error } = useVeterinarian(id);
   const [isEditing, setIsEditing] = useState(false);
-  const [experience, setExperience] = useState<ProfessionalExperience[]>([]); // Estado inicial vazio
-
-  // Verifica se o veterinário logado está acessando seu próprio perfil
-  const isOwner = session?.user?.id === id;
-
-  // Atualiza o estado `experience` quando os dados do veterinário são carregados
-  useEffect(() => {
-    if (veterinarian && Array.isArray(veterinarian.professionalExperience)) {
-      const updatedExperience = veterinarian.professionalExperience.map((exp: any) => ({
-        title: exp.title || '',
-        company: exp.company || '',
-        period: exp.period || '',
-        description: exp.description || '',
-      }));
-      setExperience(updatedExperience);
-    }
-  }, [veterinarian]);
+  const [experience, setExperience] = useState<ProfessionalExperience[]>(professionalExperience);
 
   const handleSave = () => {
     setIsEditing(false);
@@ -49,9 +39,6 @@ export default function CardExperienciaProfissionalVet({ id, onSave }: CardExper
     updatedExperience[index][field] = value;
     setExperience(updatedExperience);
   };
-
-  if (isLoading) return <div>Carregando...</div>;
-  if (error || !veterinarian) return <div>Erro ao carregar os dados do veterinário.</div>;
 
   return (
     <Box sx={{ padding: 3, border: '1px solid #ccc', borderRadius: 2, marginTop: 2 }}>
