@@ -1,3 +1,4 @@
+// componentes/CardVeterinarios.tsx
 'use client';
 import { useVeterinarian } from '@/hook/useVeterinarian'; // Importe o hook
 import ComputerIcon from '@mui/icons-material/Computer';
@@ -11,16 +12,16 @@ export default function CardVeterinarios({ id }: { id: string }) {
   const { data: veterinarian, isLoading, error } = useVeterinarian(id);
 
   if (isLoading) {
-    return <div>Carregando...</div>; // Ou qualquer indicador de carregamento
+    return <div>Carregando...</div>; //  indicador de carregamento
   }
 
   if (error || !veterinarian) {
-    return <div>Erro ao carregar os dados do veterinário.</div>; // Ou qualquer mensagem de erro
+    return <div>Erro ao carregar os dados do veterinário.</div>; // mensagem de erro
   }
 
   return (
 
-    <Link href={`/veterinarios/${veterinarian.id}`} passHref>
+    <Link href={`/perfilveterinario/${veterinarian.id}`} passHref>
       <Card
         sx={{
           width: '100%', // Mantém o card com 100% da largura do contêiner
