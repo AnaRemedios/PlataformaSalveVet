@@ -5,6 +5,7 @@ import PetCard from '@/components/PetCard';
 import AllPetsModal from '@/components/AllPetsModal';
 import RegisterPetModal from '@/components/RegisterPetModal';
 import PetDetailsModal from '@/components/PetDetailsModal';
+import CadastrarAnimalModal from '@/components/CadastrarAnimalModal';
 
 export default function MeusPetsPage() {
   const [openAllPets, setOpenAllPets] = useState(false);
@@ -61,8 +62,11 @@ export default function MeusPetsPage() {
       {/* Modal de Todos os Animais Cadastrados */}
       <AllPetsModal open={openAllPets} onClose={() => setOpenAllPets(false)} />
 
-      {/* Modal de Cadastro de Animal */}
-      <RegisterPetModal open={openRegisterModal} onClose={() => setOpenRegisterModal(false)} />
+       {/* Modal de Cadastro de Animal */}
+       <CadastrarAnimalModal
+        open={openRegisterModal}
+        onClose={() => setOpenRegisterModal(false)}
+      />
 
       {/* Modal de Detalhes do Animal */}
       {selectedPet && (
